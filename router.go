@@ -8,6 +8,7 @@ import (
 
 var Router *httprouter.Router
 
+// Функция инициализации путей httprouter
 func SetupRouter() {
 	Router = httprouter.New()
 	Router.GET("/", Index)
@@ -15,5 +16,6 @@ func SetupRouter() {
 	Router.GET("/home/download", Download)
 	Router.POST("/auth", Auth)
 
+	// Позволяет серверу обрабатывать статические файлы по указанному пути.
 	Router.ServeFiles("/public/*filepath", http.Dir("./public"))
 }

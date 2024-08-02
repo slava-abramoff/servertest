@@ -7,7 +7,29 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Всё хорошо</h1>
-    
+    <form action="/auth" method="POST">
+        <label for="first">
+              Username:
+        </label>
+        <input type="text" 
+               id="first" 
+               name="username" 
+               placeholder="Enter your Username" required>
+
+        <label for="password">
+              Password:
+        </label>
+        <input type="password"
+               id="password" 
+               name="password"
+               placeholder="Enter your Password" required>
+
+        <div class="wrap">
+              <button type="submit"
+                      onclick="solve()">
+                    Submit
+              </button>
+        </div>
+  </form>
 </body>
 </html>

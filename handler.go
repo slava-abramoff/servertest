@@ -18,7 +18,7 @@ func Auth(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	username := r.FormValue("username")
 	password := r.FormValue("password")
 
-	if username == "admin" && password == "admin" {
+	if FindUserFromDB(username, password) {
 		http.Redirect(w, r, "/home", http.StatusSeeOther)
 		log.Printf("User %s login successfully", username)
 	} else {

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"log"
 	"net/http"
 
@@ -36,4 +37,31 @@ func Home(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 func Download(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	http.ServeFile(w, r, "public/storage/13. Могильщик.mp3")
 	log.Println("Somebody downloaded chanson")
+}
+
+// Отправка данных о пользователях json-файлом
+func GetUsers(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	data, err := json.Marshal(GetUsersFromDB())
+	if err != nil {
+		log.Printf("Failed to marshal users %s", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+	}
+	w.Write(data)
+}
+
+// Отправка данных о пользователе по имени json-файлом
+func GetUserByName(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	user, err := GetUserByNameFromDB(ps.ByName("name"))
+	if err != nil {
+		log.Println(err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
+	data, err := json.Marshal(user)
+	if err != nil {
+		log.Printf("Failed to marshal user %s", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+	}
+	w.Write(data)
+
 }

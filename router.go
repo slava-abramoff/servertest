@@ -15,6 +15,8 @@ func SetupRouter() {
 	Router.GET("/home", Home)
 	Router.GET("/home/download", Download)
 	Router.POST("/auth", Auth)
+	Router.GET("/users", GetUsers)
+	Router.GET("/users/:name", GetUserByName)
 
 	// Позволяет серверу обрабатывать статические файлы по указанному пути.
 	Router.ServeFiles("/public/*filepath", http.Dir("./public"))
